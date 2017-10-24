@@ -1,0 +1,33 @@
+{
+  "name": "fastify-pug",
+  "version": "1.0.0",
+  "description": "pug integration for fastify",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/*"
+  },
+  "keywords": [
+    "fastify",
+    "pug"
+  ],
+  "author": "Denis Fäcke",
+  "license": "MIT",
+  "dependencies": {
+    "fastify-plugin": "^0.1.1",
+    "pug": "^2.0.0-rc.4",
+    "util-extend": "^1.0.3"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SerayaEryn/fastify-pug.git"
+  },
+  "devDependencies": {
+    "fastify": "^0.30.2",
+    "jade": "^1.11.0",
+    "request": "^2.83.0",
+    "tap": "^10.7.2"
+  }
+}
