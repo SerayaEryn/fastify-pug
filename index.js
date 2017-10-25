@@ -20,7 +20,9 @@ function fastifyPug(fastify, opts, next) {
 	}
 
 	function render(view, options) {
-		let locals = extend(options || {}, this.locals);
+		let locals = extend(opts || {}, options || {});
+		locals = extend(locals, this.locals);
+
 		if (!view.includes(fileEnding)) {
 			view += fileEnding;
 		}
