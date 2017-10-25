@@ -4,7 +4,8 @@
   "description": "pug integration for fastify",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*"
+    "test": "tap test/*",
+    "lint": "./node_modules/eslint/bin/eslint.js index.js"
   },
   "keywords": [
     "fastify",
@@ -25,6 +26,7 @@
     "url": "git+https://github.com/SerayaEryn/fastify-pug.git"
   },
   "devDependencies": {
+    "eslint": "^4.9.0",
     "fastify": "^0.30.2",
     "jade": "^1.11.0",
     "request": "^2.83.0",

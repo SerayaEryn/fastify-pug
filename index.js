@@ -16,7 +16,7 @@ function fastifyPug(fastify, opts, next) {
 
 	let fallbackTempateDir;
 	if (opts.fallbackViews) {
-	 	fallbackTempateDir = resolve(opts.fallbackViews);
+		fallbackTempateDir = resolve(opts.fallbackViews);
 	}
 
 	function render(view, options) {
@@ -47,7 +47,7 @@ function fastifyPug(fastify, opts, next) {
 			const compiledTemplate = engine.compile(template, locals);
 			cache[view] = compiledTemplate;
 			setContentTypeHeader(that);
-		    that.send(compiledTemplate(locals));
+			that.send(compiledTemplate(locals));
 		}
 	}
 	next();
