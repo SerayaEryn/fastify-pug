@@ -35,6 +35,59 @@ test('should set render template', t => {
 	})
 })
 
+test('should set render template without locals', t => {
+	t.plan(3);
+	const fastify = Fastify();
+
+	const options = {
+		views: 'test/views1'
+	}
+	fastify.register(fastifyPug, options);
+	fastify.get('/', (request, reply) => {
+		reply.render('index.pug');
+	})
+	fastify.listen(0, err => {
+		fastify.server.unref();
+		t.error(err);
+		request({
+			method: 'GET',
+			uri: 'http://localhost:' + fastify.server.address().port
+		}, (err, response, body) => {
+			t.error(err);
+			t.strictEqual(response.statusCode, 200);
+		})
+	})
+})
+
+test('should not override content-type header', t => {
+	t.plan(4);
+	const fastify = Fastify();
+
+	const options = {
+		views: 'test/views1'
+	}
+	fastify.register(fastifyPug, options);
+	fastify.get('/', (request, reply) => {
+		const model = {
+			test: 'a value'
+		}
+		reply.header('content-type', 'text/somethingelse')
+		reply.render('index.pug', model);
+	})
+	fastify.listen(0, err => {
+		fastify.server.unref();
+		t.error(err);
+		request({
+			method: 'GET',
+			uri: 'http://localhost:' + fastify.server.address().port
+		}, (err, response, body) => {
+			t.error(err);
+			t.strictEqual(response.statusCode, 200);
+			t.strictEqual(response.headers['content-type'], 'text/somethingelse');
+		})
+	})
+})
+
 test('should pass opts to locals', t => {
 	t.plan(4);
 	const fastify = Fastify();
