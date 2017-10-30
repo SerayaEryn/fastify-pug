@@ -1,5 +1,7 @@
 # fastify-pug
 
+[![NPM version](https://img.shields.io/npm/v/fastify-pug.svg?style=flat)](https://www.npmjs.com/package/fastify-pug)
+
 A plugin for [fastify](http://fastify.io/) that adds support for the template engine [pug](https://pugjs.org).
 
 ## Install
