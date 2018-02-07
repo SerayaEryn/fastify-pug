@@ -61,4 +61,4 @@ function setContentTypeHeader(that) {
 	}
 }
 
-exports = module.exports = fastifyPlugin(fastifyPug, '>=0.30.2');
+exports = module.exports = fastifyPlugin(fastifyPug, '>=0.43.0');

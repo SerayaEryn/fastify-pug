@@ -310,7 +310,7 @@ test('should pass error if template not found', t => {
 		reply.locals.test = 'a value';
 		reply.render('test2.pug', {});
 	});
-	fastify.setErrorHandler((error, reply) => {
+	fastify.setErrorHandler((error, request, reply) => {
 		reply.header('Content-Type', 'text/html');
 		reply.send("test");
 	});
