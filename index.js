@@ -56,7 +56,7 @@ function fastifyPug(fastify, opts, next) {
 }
 
 function setContentTypeHeader(that) {
-	if (!that.res.getHeader('content-type')) {
+	if (!that.getHeader('content-type')) {
 		that.header('Content-Type', 'text/html');
 	}
 }
