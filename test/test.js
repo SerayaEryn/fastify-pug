@@ -214,47 +214,17 @@ test('should set render pug template if no file ending', t => {
 	})
 })
 
-test('should use jade as template engine', t => {
-	t.plan(4);
-	const fastify = Fastify();
-
-	const options = {
-		views: 'test/views1',
-		engine: 'jade'
-	}
-	fastify.register(fastifyPug, options);
-	fastify.get('/', (request, reply) => {
-		const model = {
-			test: 'a value'
-		}
-		reply.render('index.jade', model);
-	})
-	fastify.listen(0, err => {
-		fastify.server.unref();
-		t.error(err);
-		request({
-			method: 'GET',
-			uri: 'http://localhost:' + fastify.server.address().port
-		}, (err, response, body) => {
-			t.error(err);
-			t.strictEqual(response.statusCode, 200);
-			t.strictEqual(body, 'a value');
-		})
-	})
-})
-
 test('should use value from locals', t => {
 	t.plan(4);
 	const fastify = Fastify();
 
 	const options = {
-		views: 'test/views1',
-		engine: 'jade'
+		views: 'test/views1'
 	}
 	fastify.register(fastifyPug, options);
 	fastify.get('/', (request, reply) => {
 		reply.locals.test = 'a value';
-		reply.render('index.jade', {});
+		reply.render('index.pug', {});
 	})
 	fastify.listen(0, err => {
 		fastify.server.unref();
@@ -276,8 +246,7 @@ test('should use templates from fallback dir', t => {
 
 	const options = {
 		views: 'test/views1',
-		fallbackViews: 'test/views2',
-		engine: 'pug'
+		fallbackViews: 'test/views2'
 	}
 	fastify.register(fastifyPug, options);
 	fastify.get('/', (request, reply) => {
@@ -333,8 +302,7 @@ test('should set content type header', t => {
 
 	const options = {
 		views: 'test/views1',
-		fallbackViews: 'test/views2',
-		engine: 'pug'
+		fallbackViews: 'test/views2'
 	}
 	fastify.register(fastifyPug, options);
 	fastify.get('/', (request, reply) => {

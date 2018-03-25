@@ -4,15 +4,15 @@ const fastifyPlugin = require('fastify-plugin');
 const extend = require('util-extend');
 const { readFile } = require('fs');
 const { resolve } = require('path');
+const engine = require('pug');
 
 function fastifyPug(fastify, opts, next) {
 	fastify.decorateReply('locals', {}); 
 	fastify.decorateReply('render', render); 
 
 	const cache = {};
-	const engine = require(opts.engine || 'pug');
 	const templatesDir = resolve(opts.views);
-	const fileEnding = '.' + (opts.engine || 'pug');
+	const fileEnding = '.pug';
 
 	let fallbackTempateDir;
 	if (opts.fallbackViews) {

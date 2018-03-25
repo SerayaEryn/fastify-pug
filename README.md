@@ -34,7 +34,6 @@ fastify.listen(3000, (error) => {
 ### Options
 * `views` - the relative path to the folder containing the views.
 * `fallbackViews` (optional) - a fallback directory for the views.
-* `engine` (optional) - allows to use jade if needed. Defaults to `pug`.
 ### reply.render(view [, locals])
 Renders the template from the relative path `view`. Allows to pass variables to the template via the `locals` object.
 
