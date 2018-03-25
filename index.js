@@ -61,4 +61,9 @@ function setContentTypeHeader(that) {
 	}
 }
 
-exports = module.exports = fastifyPlugin(fastifyPug, '>=0.43.0');
+const metadata = {
+  fastify: '>=1.0.0',
+  name: 'fastify-pug'
+};
+
+exports = module.exports = fastifyPlugin(fastifyPug, metadata);
