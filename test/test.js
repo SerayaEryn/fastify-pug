@@ -1,14 +1,13 @@
 'use strict'
 
-const t = require('tap')
-const test = t.test
+const test = require('ava')
 const Fastify = require('fastify')
 const request = require('request')
 const fastifyPug = require('..')
 const fileSystem = require('fs')
 const path = require('path')
 
-test('should set render template', t => {
+test.cb('should set render template', t => {
   t.plan(4)
   const fastify = Fastify()
 
@@ -24,22 +23,23 @@ test('should set render template', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'a value')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'a value')
+      t.end()
     })
   })
 })
 
-test('should set render template without locals', t => {
+test.cb('should set render template without locals', t => {
   t.plan(3)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -49,21 +49,22 @@ test('should set render template without locals', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.end()
     })
   })
 })
 
-test('should not override content-type header', t => {
+test.cb('should not override content-type header', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -77,22 +78,23 @@ test('should not override content-type header', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(response.headers['content-type'], 'text/somethingelse')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(response.headers['content-type'], 'text/somethingelse')
+      t.end()
     })
   })
 })
 
-test('should pass opts to locals', t => {
+test.cb('should pass opts to locals', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -105,22 +107,23 @@ test('should pass opts to locals', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'test/views1')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'test/views1')
+      t.end()
     })
   })
 })
 
-test('should include other file', t => {
+test.cb('should include other file', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1',
     filename: path.join(__dirname, '/views1/test')
@@ -132,22 +135,23 @@ test('should include other file', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'test/views1')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'test/views1')
+      t.end()
     })
   })
 })
 
-test('should set render template using the cache', t => {
+test.cb('should set render template using the cache', t => {
   t.plan(9)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -160,26 +164,27 @@ test('should set render template using the cache', t => {
     reply.render('index.pug', model)
   })
   fastify.listen(0, err => {
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'a value')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'a value')
       fileSystem.writeFile(path.join(__dirname, '/views1/index.pug'), '| another value', (err) => {
-        t.error(err)
+        t.falsy(err)
         request({
           method: 'GET',
           uri: 'http://localhost:' + fastify.server.address().port
         }, (err, response, body) => {
           fastify.server.unref()
-          t.error(err)
-          t.strictEqual(response.statusCode, 200)
-          t.strictEqual(body, 'a value')
+          t.falsy(err)
+          t.is(response.statusCode, 200)
+          t.is(body, 'a value')
           fileSystem.writeFile(path.join(__dirname, '/views1/index.pug'), '!=test', (err) => {
-            t.error(err)
+            t.falsy(err)
+            t.end()
           })
         })
       })
@@ -187,10 +192,10 @@ test('should set render template using the cache', t => {
   })
 })
 
-test('should set render pug template if no file ending', t => {
+test.cb('should set render pug template if no file ending', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -203,22 +208,23 @@ test('should set render pug template if no file ending', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'a value')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'a value')
+      t.end()
     })
   })
 })
 
-test('should use value from locals', t => {
+test.cb('should use value from locals', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -229,22 +235,23 @@ test('should use value from locals', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'a value')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'a value')
+      t.end()
     })
   })
 })
 
-test('should use templates from fallback dir', t => {
+test.cb('should use templates from fallback dir', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1',
     fallbackViews: 'test/views2'
@@ -256,22 +263,23 @@ test('should use templates from fallback dir', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.statusCode, 200)
-      t.strictEqual(body, 'a value')
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'a value')
+      t.end()
     })
   })
 })
 
-test('should pass error if template not found', t => {
+test.cb('should pass error if template not found', t => {
   t.plan(4)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1'
   }
@@ -281,27 +289,28 @@ test('should pass error if template not found', t => {
     reply.render('test2.pug', {})
   })
   fastify.setErrorHandler((error, request, reply) => {
-    t.ok(error)
+    t.truthy(error)
     reply.header('Content-Type', 'text/html')
     reply.send('test')
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(body, 'test')
+      t.falsy(err)
+      t.is(body, 'test')
+      t.end()
     })
   })
 })
 
-test('should set content type header', t => {
+test.cb('should set content type header', t => {
   t.plan(3)
   const fastify = Fastify()
-
+  
   const options = {
     views: 'test/views1',
     fallbackViews: 'test/views2'
@@ -313,13 +322,14 @@ test('should set content type header', t => {
   })
   fastify.listen(0, err => {
     fastify.server.unref()
-    t.error(err)
+    t.falsy(err)
     request({
       method: 'GET',
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
-      t.error(err)
-      t.strictEqual(response.headers['content-type'], 'text/html')
+      t.falsy(err)
+      t.is(response.headers['content-type'], 'text/html')
+      t.end()
     })
   })
 })
