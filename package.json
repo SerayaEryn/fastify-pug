@@ -4,7 +4,7 @@
   "description": "pug integration for fastify",
   "main": "index.js",
   "scripts": {
-    "test": "ava test/*",
+    "test": "ava test/*.js",
     "lint": "standard index.js test/*.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage-report": "nyc npm test && nyc report --reporter=html"
@@ -28,7 +28,7 @@
     "url": "git+https://github.com/SerayaEryn/fastify-pug.git"
   },
   "devDependencies": {
-    "ava": "^1.4.1",
+    "ava": "^2.0.0",
     "coveralls": "^3.0.0",
     "fastify": "^2.0.0",
     "nyc": "^14.1.1",
