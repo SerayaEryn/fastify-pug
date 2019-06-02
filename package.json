@@ -4,7 +4,7 @@
   "description": "pug integration for fastify",
   "main": "index.js",
   "scripts": {
-    "test": "ava test/*",
+    "test": "ava test/*.js",
     "lint": "standard index.js test/*.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage-report": "nyc npm test && nyc report --reporter=html"
