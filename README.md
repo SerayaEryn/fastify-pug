@@ -22,11 +22,13 @@ const fastifyPug = require('fastify-pug');
 
 const app = fastify();
 app.register(fastifyPug, {views: 'views'});
+
 app.get('/', (request, reply) => {
 	reply.render('template.pug');
 });
-fastify.listen(3000, (error) => {
-	if (err) throw err
+
+app.listen(3000, (error) => {
+	if (error) throw error
 })
 ```
 
