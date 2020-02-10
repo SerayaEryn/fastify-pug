@@ -21,7 +21,7 @@
     "util-extend": "^1.0.3"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.13.0"
   },
   "repository": {
     "type": "git",
