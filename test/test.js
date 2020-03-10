@@ -334,7 +334,7 @@ test.cb('should set content type header', t => {
   })
 })
 
-test.cb('should pass reference view path when setting filename if passed as function', t => {
+test.cb('should invoke opts.filename if it is a function, passing in the template view path', t => {
   t.plan(4)
   const fastify = Fastify()
   
@@ -361,7 +361,7 @@ test.cb('should pass reference view path when setting filename if passed as func
   })
 })
 
-test.cb('should not execute filename propty as function if not such', t => {
+test.cb('should not invoke opts.filename if it is not a function', t => {
   t.plan(4)
   const fastify = Fastify()
   
