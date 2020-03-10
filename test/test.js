@@ -344,10 +344,7 @@ test.cb('should pass reference view path when setting filename if passed as func
   }
   fastify.register(fastifyPug, options)
   fastify.get('/', (request, reply) => {
-    const model = {
-      filename: 'src/test5.pug'
-    }
-    reply.render('test5.pug', model)
+    reply.render('test5.pug')
   })
   fastify.listen(0, err => {
     fastify.server.unref()
