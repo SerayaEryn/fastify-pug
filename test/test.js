@@ -360,3 +360,30 @@ test.cb('should pass reference view path when setting filename if passed as func
     })
   })
 })
+
+test.cb('should not execute filename propty as function if not such', t => {
+  t.plan(4)
+  const fastify = Fastify()
+  
+  const options = {
+    views: 'test/views1',
+    filename: 'something'
+  }
+  fastify.register(fastifyPug, options)
+  fastify.get('/', (request, reply) => {
+    reply.render('test5.pug')
+  })
+  fastify.listen(0, err => {
+    fastify.server.unref()
+    t.falsy(err)
+    request({
+      method: 'GET',
+      uri: 'http://localhost:' + fastify.server.address().port
+    }, (err, response, body) => {
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'something')
+      t.end()
+    })
+  })
+})
