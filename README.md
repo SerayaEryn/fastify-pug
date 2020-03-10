@@ -37,7 +37,7 @@ app.listen(3000, (error) => {
 ### Options
 * `views` - the relative path to the folder containing the views.
 * `fallbackViews` (optional) - a fallback directory for the views.
-* `filename` (optional) - for handling realtive includes. Pass in a function like (view: string) => `src/${view}`
+* `filename` (optional) - for handling relative includes. Pass in a function like (view: string) => `src/${view}`
 ### reply.render(view [, locals])
 Renders the template from the relative path `view`. Allows to pass variables to the template via the `locals` object.
 
