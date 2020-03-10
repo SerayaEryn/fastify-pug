@@ -23,7 +23,7 @@ function fastifyPug (fastify, opts, next) {
     let locals = extend(opts, options || {})
     locals = extend(locals, this.locals)
 
-    if (typeof (opts || {}).filename === 'function') {
+    if (typeof opts.filename === 'function') {
 			locals = extend(locals, { filename: opts.filename(view) });
 		}
 
