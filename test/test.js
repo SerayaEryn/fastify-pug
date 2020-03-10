@@ -333,3 +333,33 @@ test.cb('should set content type header', t => {
     })
   })
 })
+
+test.cb('should pass reference view path when setting filename if passed as function', t => {
+  t.plan(4)
+  const fastify = Fastify()
+  
+  const options = {
+    views: 'test/views1',
+    filename: (view) => `src/${view}`
+  }
+  fastify.register(fastifyPug, options)
+  fastify.get('/', (request, reply) => {
+    const model = {
+      filename: 'src/test5.pug'
+    }
+    reply.render('test5.pug', model)
+  })
+  fastify.listen(0, err => {
+    fastify.server.unref()
+    t.falsy(err)
+    request({
+      method: 'GET',
+      uri: 'http://localhost:' + fastify.server.address().port
+    }, (err, response, body) => {
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'src/test5.pug')
+      t.end()
+    })
+  })
+})
