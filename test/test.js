@@ -333,3 +333,57 @@ test.cb('should set content type header', t => {
     })
   })
 })
+
+test.cb('should invoke opts.filename if it is a function, passing in the template view path', t => {
+  t.plan(4)
+  const fastify = Fastify()
+  
+  const options = {
+    views: 'test/views1',
+    filename: (view) => `src/${view}`
+  }
+  fastify.register(fastifyPug, options)
+  fastify.get('/', (request, reply) => {
+    reply.render('test5.pug')
+  })
+  fastify.listen(0, err => {
+    fastify.server.unref()
+    t.falsy(err)
+    request({
+      method: 'GET',
+      uri: 'http://localhost:' + fastify.server.address().port
+    }, (err, response, body) => {
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'src/test5.pug')
+      t.end()
+    })
+  })
+})
+
+test.cb('should not invoke opts.filename if it is not a function', t => {
+  t.plan(4)
+  const fastify = Fastify()
+  
+  const options = {
+    views: 'test/views1',
+    filename: 'something'
+  }
+  fastify.register(fastifyPug, options)
+  fastify.get('/', (request, reply) => {
+    reply.render('test5.pug')
+  })
+  fastify.listen(0, err => {
+    fastify.server.unref()
+    t.falsy(err)
+    request({
+      method: 'GET',
+      uri: 'http://localhost:' + fastify.server.address().port
+    }, (err, response, body) => {
+      t.falsy(err)
+      t.is(response.statusCode, 200)
+      t.is(body, 'something')
+      t.end()
+    })
+  })
+})

@@ -1,12 +1,11 @@
 'use strict'
 
 const fastifyPlugin = require('fastify-plugin')
-const extend = require('util-extend')
 const { readFile } = require('fs')
 const { resolve } = require('path')
 const engine = require('pug')
 
-function fastifyPug (fastify, opts, next) {
+function fastifyPug(fastify, opts, next) {
   fastify.decorateReply('locals', {})
   fastify.decorateReply('render', render)
 
@@ -19,9 +18,13 @@ function fastifyPug (fastify, opts, next) {
     fallbackTempateDir = resolve(opts.fallbackViews)
   }
 
-  function render (view, options) {
-    let locals = extend(opts, options || {})
-    locals = extend(locals, this.locals)
+  function render(view, options) {
+    let locals = { ...opts, ...options }
+    locals = { ...locals, ...this.locals }
+
+    if (typeof opts.filename === 'function') {
+      locals = { ...locals, filename: opts.filename(view) }
+    }
 
     if (!view.includes(fileEnding)) {
       view += fileEnding
@@ -37,8 +40,8 @@ function fastifyPug (fastify, opts, next) {
     }
   }
 
-  function readFileCallback (that, templatesDir, fallbackTempateDir, view, locals) {
-    return function readFileCallbackInternal (error, template) {
+  function readFileCallback(that, templatesDir, fallbackTempateDir, view, locals) {
+    return function readFileCallbackInternal(error, template) {
       if (error && fallbackTempateDir) {
         readFile(`${fallbackTempateDir}/${view}`, 'utf8', readFileCallback(that, templatesDir, null, view, locals))
         return
@@ -55,7 +58,7 @@ function fastifyPug (fastify, opts, next) {
   next()
 }
 
-function setContentTypeHeader (that) {
+function setContentTypeHeader(that) {
   if (!that.getHeader('content-type')) {
     that.header('Content-Type', 'text/html')
   }
