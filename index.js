@@ -8,6 +8,7 @@ const engine = require('pug')
 function fastifyPug(fastify, opts, next) {
   fastify.decorateReply('locals', {})
   fastify.decorateReply('render', render)
+  fastify.decorateReply('view', render)
 
   const cache = {}
   const templatesDir = resolve(opts.views)
