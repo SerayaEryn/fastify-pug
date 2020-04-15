@@ -8,6 +8,7 @@ const engine = require('pug')
 function fastifyPug(fastify, opts, next) {
   fastify.decorateReply('locals', {})
   fastify.decorateReply('render', render)
+  fastify.decorateReply('view', render)
 
   const cache = {}
   const templatesDir = resolve(opts.views)
@@ -60,7 +61,7 @@ function fastifyPug(fastify, opts, next) {
 
 function setContentTypeHeader(that) {
   if (!that.getHeader('content-type')) {
-    that.header('Content-Type', 'text/html')
+    that.header('Content-Type', 'text/html; charset=UTF-8')
   }
 }
 
