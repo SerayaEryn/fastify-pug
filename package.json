@@ -1,6 +1,6 @@
 {
   "name": "fastify-pug",
-  "version": "2.0.0",
+  "version": "1.2.0",
   "description": "pug integration for fastify",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "ava": "^3.0.0",
-    "coveralls": "^3.0.0",
     "fastify": "^2.0.0",
     "nyc": "^15.0.0",
     "request": "^2.85.0",
