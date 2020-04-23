@@ -1,12 +1,12 @@
 {
   "name": "fastify-pug",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "pug integration for fastify",
   "main": "index.js",
   "scripts": {
     "test": "ava test/*.js",
     "lint": "standard index.js test/*.js",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test",
     "coverage-report": "nyc npm test && nyc report --reporter=html"
   },
   "keywords": [
