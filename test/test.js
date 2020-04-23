@@ -328,7 +328,7 @@ test.cb('should set content type header', t => {
       uri: 'http://localhost:' + fastify.server.address().port
     }, (err, response, body) => {
       t.falsy(err)
-      t.is(response.headers['content-type'], 'text/html')
+      t.is(response.headers['content-type'], 'text/html; charset=UTF-8')
       t.end()
     })
   })
