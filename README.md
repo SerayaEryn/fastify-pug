@@ -1,7 +1,6 @@
 # fastify-pug
 
 ![Build Status](https://github.com/SerayaEryn/fastify-pug/workflows/ci/badge.svg)
-[![Greenkeeper badge](https://badges.greenkeeper.io/SerayaEryn/fastify-pug.svg)](https://greenkeeper.io/)
 [![Coverage Status](https://coveralls.io/repos/github/SerayaEryn/fastify-pug/badge.svg?branch=master)](https://coveralls.io/github/SerayaEryn/fastify-pug?branch=master)
 [![NPM version](https://img.shields.io/npm/v/fastify-pug.svg?style=flat)](https://www.npmjs.com/package/fastify-pug)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
