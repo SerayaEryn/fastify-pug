@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "fastify-plugin": "^3.0.0",
-    "pug": "^3.0.0",
+    "pug": "^3.0.2",
     "util-extend": "^1.0.3"
   },
   "engines": {
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "ava": "^3.0.0",
-    "fastify": "^3.2.1",
+    "fastify": "^3.17.0",
     "nyc": "^15.0.0",
     "request": "^2.85.0",
     "standard": "^15.0.0"
