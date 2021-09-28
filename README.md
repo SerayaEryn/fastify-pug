@@ -1,3 +1,5 @@
+> Deprecated. Use [point of view](https://github.com/fastify/point-of-view) instead.
+
 # fastify-pug
 
 ![Build Status](https://github.com/SerayaEryn/fastify-pug/workflows/ci/badge.svg)
